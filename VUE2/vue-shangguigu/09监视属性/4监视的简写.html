@@ -47,19 +47,16 @@ const vm = new Vue({
       }
     },
     watch:{
-    //监视多级结构中某个属性的变化
-      // 'numbers.a':{
-      //   handler(){
-      //     console.log("a 被改变了")
+      // isGe:{
+      //   immediate:true, // 初始化时候让handler调用一下
+      //   // handler什么时候调用？当isGe发生改变时候
+      //   handler(newValue,oldValue){
+      //     console.log("isGe被修改了",newValue,oldValue);
       //   }
-      // }
-
-      // 监视多级结构中所有属性的变化
-      numbers:{
-        deep: true,
-        handler(){
-          console.log("numbers改变了")
-        }
+      // },
+      // 监视的简写
+      isGe(newValue,oldValue){
+        console.log("isGe被修改了简写形式",newValue,oldValue)
       }
     },
     computed: {
@@ -72,14 +69,6 @@ const vm = new Vue({
         this.isGe = !this.isGe;
       }
     }
-})
-
-vm.$watch('isGe',{
-  immediate:true, // 初始化时候让handler调用一下
-  // handler什么时候调用？当isGe发生改变时候
-  handler(newValue,oldValue){
-    console.log("isGe被修改了",newValue,oldValue);
-  }
 })
 </script>
 </body>
