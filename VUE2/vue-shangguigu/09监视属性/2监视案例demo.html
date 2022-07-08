@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>Document</title>
+ <script src='../js/vue.js'></script>
+</head>
+<body>
+
+  <!--  
+    监视属性watch:
+    1,当被监视的属性变化时候，回调函数自动调用，进行相关操作
+    2，监视的属性必须存在，才能进行监视
+    3，监视的两种写法：
+     3.1 new Vue时传入watch配置
+     3.2 通过vm.$watch监视
+
+  -->
+<div id='root'>
+  {{ name }}
+  <h2>今天胡歌帅不帅：{{ info }}</h2>
+  <button @click.stop="changeGe">胡歌帅帅</button>
+  <button @click.stop="isGe = !isGe">胡歌超级帅</button>
+</div>
+<script>
+Vue.config.productionTip = false; //阻止生产提示
+const vm = new Vue({
+  el:'#root',
+  data(){
+      return {
+        name:'胡歌',
+        isGe: true
+      }
+    },
+    watch:{
+      isGe:{
+        immediate:true, // 初始化时候让handler调用一下
+        // handler什么时候调用？当isGe发生改变时候
+        handler(newValue,oldValue){
+          console.log("isGe被修改了",newValue,oldValue);
+        }
+      },
+      info:{
+        handler(newValue,oldValue){
+          console.log("info被修改了",newValue,oldValue)  
+        }
+      }
+    },
+    computed: {
+      info(){
+        return this.isGe ? "帅" : "非常帅"
+      }
+    },
+    methods:{
+      changeGe(){
+        this.isGe = !this.isGe;
+      }
+    }
+})
+
+vm.$watch('isGe',{
+  immediate:true, // 初始化时候让handler调用一下
+  // handler什么时候调用？当isGe发生改变时候
+  handler(newValue,oldValue){
+    console.log("isGe被修改了",newValue,oldValue);
+  }
+})
+</script>
+</body>
+</html>

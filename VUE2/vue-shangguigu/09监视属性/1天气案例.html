@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>Document</title>
+ <script src='../js/vue.js'></script>
+</head>
+<body>
+<div id='root'>
+  {{ name }}
+  <h2>今天胡歌帅不帅：{{ info }}</h2>
+  <button @click.stop="changeGe">胡歌帅帅</button>
+  <button @click.stop="isGe = !isGe">胡歌超级帅</button>
+</div>
+<script>
+Vue.config.productionTip = false; //阻止生产提示
+new Vue({
+  el:'#root',
+  data(){
+      return {
+        name:'胡歌',
+        isGe: true
+      }
+    },
+    computed: {
+      info(){
+        return this.isGe ? "帅" : "非常帅"
+      }
+    },
+    methods:{
+      changeGe(){
+        this.isGe = !this.isGe;
+      }
+    }
+})
+</script>
+</body>
+</html>

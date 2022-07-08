@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数据绑定</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  <!-- vue 中有两种数据绑定的方式
+        1，单向绑定：v-bind 数据只能通过data流向页面
+        2，双向绑定：v-model 数据不仅能从data流向页面，也可以从页面流向data。
+        备注：
+         1，双向绑定一般应用在表单类元素上（如input,select等）
+         2，v-model:value可以简写为v-model,因为v-model默认收集的就是value值。
+  -->
+
+  <div id="root">
+    {{ name }}
+  </div>
+
+  <script>
+    Vue.config.productionTip = false; //阻止生产提示
+    new Vue({
+      el:"#root",
+      data(){
+        return {
+          name:"胡歌"
+        }
+      }
+    })
+  </script>
+</body>
+</html>
