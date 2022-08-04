@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function flat(obj,s="",o={}){
+      if(!obj) return;
+      Object.entries(obj).forEach(([k,v]) => {
+        if(Array.isArray(v)){
+          let p = Array.isArray(obj) ? `${s}[${k}]` : `${s}${k}`;
+          flat(v,p,o);
+        }else if(typeof v === 'object'){
+          let p = Array.isArray(obj) ? `${s}[${k}].` : `${s}${k}.`;
+          flat(v,p,o);
+        }else{
+          let p = Array.isArray(obj) ? `${s}[${k}]` : `${s}${k}`;
+          o[p] = v;
+        }
+      });
+      return o;
+    }
+
+    const obj = {
+      a:{
+        b:1,
+        c:2,
+        d:{e:5}
+      },
+      b:[1,3,{a:2,b:3}],
+      c:3
+    }
+    console.log(flat(obj));
+    // console.log(flat({b:[1,3,{a:2,b:3}]}));
+    // console.log(flat([1,3,{a:2,b:3}]))
+  </script>
+</body>
+</html>

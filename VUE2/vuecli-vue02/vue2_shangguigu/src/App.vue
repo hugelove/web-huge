@@ -2,25 +2,28 @@
   <div id="app">
     <!-- <button @click="showHuge">showshow</button>
     <h1 v-text="msg" ref="title"></h1> -->
-    <count></count>
+    <!-- <count></count>
     <hr/>
     <person/>
-    <hr/>
+    <hr/> -->
     <!-- <person-huge></person-huge> -->
+    <the-test></the-test>
   </div>
 </template>
 
 <script>
-import Count from './components/moduleCom/Count'
-import Person from './components/moduleCom/Person'
-import PersonHuge from './components/notModule/PersonHuge.vue'
+import TheTest from './components/test/TheTest.vue';
+// import Count from './components/moduleCom/Count'
+// import Person from './components/moduleCom/Person'
+// import PersonHuge from './components/notModule/PersonHuge.vue'
 
 export default {
   name: 'App',
   components: {
-    Count,
-    PersonHuge,
-    Person
+    // Count,
+    // PersonHuge,
+    // Person
+    TheTest
 },
   mounted() {
     console.log('app',this)

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>回顾Object.defineProperty</title>
+</head>
+<body>
+  <script>
+    let number = 18;
+    let person = {
+      name: '胡歌',
+      sex: '男',
+    }
+
+    Object.defineProperty(person,'age',{
+      // value: 18,
+      // enumerable: true, //控制属性是否可以枚举，默认值是false
+      // writable: true, //控制属性是否可以被修改，默认值是false
+      // configurable: true, //控制属性是否可以被删除，默认值是false
+      
+      // get(){
+      //   console.log('触发了get函数')
+      //   return null;
+      // },
+
+      // set(value){
+      //   console.log("🚀 ~ file: 1Object.defineProperty.html ~ line 29 ~ set ~ value", value)
+      //   number = value
+      // }
+      // 当读取person的age属性时，get函数（getter）就会被调用，且返回值就是age的值
+      get(){
+        console.log('有人读取了age属性')
+        return number
+      },
+
+
+      // 当有人修改person的age属性时，set函数（setter）就会被调用，且会收到修改的具体值
+      set(value){
+        console.log('有人修改了age属性，且值是',value);
+        number = value;
+      }
+    })
+  </script>
+</body>
+</html>
