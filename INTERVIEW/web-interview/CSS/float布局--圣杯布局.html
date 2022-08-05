@@ -38,16 +38,26 @@
       margin-right: -150px; /***/
     }
     #footer{
-      clear: both;
+      /* clear: both;  这个去掉之后在container中添加上class='clearfix' */
       text-align: center;
       background-color: #f1f1f1;
+    }
+
+    /* 手写clearfix */
+    .clearfix:after{
+      content: '';
+      display: table;
+      clear: both;
+    }
+    .clearfix{
+      *zoom: 1;  /*兼容ie低版本**/
     }
 
   </style>
 </head>
 <body>
   <div id="header">这是头部</div>
-  <div id="container">
+  <div id="container" class="clearfix">
     <div id="center" class="column">这是中间宽度是100%</div>
     <div id="left" class="column">这是左边宽度是200px</div>
     <div id="right" class="column">右边150px</div>
