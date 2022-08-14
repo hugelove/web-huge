@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function flat(arr) {
+    // 验证 arr 中，还有没有深层数组
+    const isDeep = arr.some(item => item instanceof Array)
+    if (!isDeep) {
+        return arr // 已经是 flatern [1, 2, 3, 4]
+    }
+        const res = Array.prototype.concat.apply([], arr)
+        return flat(res) // 递归
+    }
+
+    const res = flat([1, 2, [3, 4], 5])
+    console.log(res)
+  </script>
+</body>
+</html>

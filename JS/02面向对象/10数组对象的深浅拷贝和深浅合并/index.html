@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>深拷贝浅拷贝</title>
+</head>
+<body>
+  <script>
+     let obj = {
+      name: '胡歌',
+      age: 18,
+      feature: {
+        handsome1: 'handsome',
+        handsome2: 'handsomehandsome'
+      },
+      list: [10,20,30]
+     }
+
+    //  深拷贝：可以基于JSON.stringify/parse来处理
+    // 原理: 先把对象变为字符串,再把字符串重新变为对象[浏览器会重新开辟所有需要的堆内存]
+    console.log(JSON.stringify(obj));
+    console.log(JSON.parse(JSON.stringify(obj)));
+
+    /************************************************
+     * JSON.stringify处理深拷贝的局限性：
+     * - 无法处理BigInt类型的属性值 
+     * - 某些键值对会消失
+        * - 属性值是undefined/symbol/function类型的
+        * - 属性名是symbol类型的
+     * - 属性值如果是正则对象/错误对象 会转换为“{}”，值和之前是不一样的
+     * - 日期对象变为字符串之后就无法转换为日期对象了
+     * - 一旦内部出现“套娃操作”(obj.obj = obj)，直接处理不了：Uncaught TypeError:....
+     * 
+     * 处理起来没有问题的类型：number,string,boolean,普通对象，数组对象...
+     * ***********************************************/ 
+
+
+     
+
+
+
+
+
+     
+  </script>
+</body>
+</html>

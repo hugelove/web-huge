@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS定位</title>
+  <style type="text/css">
+     body{
+      margin: 20px;
+     }
+     .relative{
+      position: relative;
+      width: 400px;
+      height: 200px;
+      border: 1px solid purple;
+     }
+     .absolute{
+      position: absolute;
+      width: 200px;
+      height: 100px;
+      border: 1px solid cyan;
+     }
+  </style>
+</head>
+<body>
+  <!--  
+    absolute和relative分别依据什么定位？
+        relative依据自身定位
+        absolute依据最近一层的定位元素定位
+    
+    居中对齐有哪些实现方式？
+      水平居中：
+        inline元素：text-align:center;
+        block元素：margin: auto;
+        absolute元素： left:50% + margin-left 负值
+      垂直居中：
+        inline元素： line-height的值等于height值
+        absolute元素：top:50% + margin-top 负值
+        absolute元素：transform(-50%,-50%)
+        absolute元素：top，left,bottom,right = 0 margin:auto;
+  -->
+  <p>absolute 和 relative 定位问题</p>
+  <div class="relative">
+    <div class="absolute">
+        this is absolute 
+    </div>
+  </div>
+</body>
+</html>

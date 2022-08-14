@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>深浅合并</title>
+</head>
+<body>
+  <script>
+    let obj1 = {
+      name:'huge',
+      age: 19,
+      hobby:{
+        music: 100,
+        jump: 80
+      }
+    }
+
+    let obj2 = {
+      name:'huge2',
+      age: 12,
+      sex:0,
+      hobby:{
+        music: 100,
+        read: 80
+      }
+    }
+
+    let obj3 = {
+      name:'huge3',
+      age: 13,
+      height: '189cm',
+      score:{
+        math: 100,
+        chinese: 80
+      }
+    }
+
+    /**
+     * 对象合并
+     * Object.assign: 依次把obj2/obj3合并到obj1中，
+     * obj1堆内存中的内容被修改，最后返回的也是obj1
+     * [浅合并，只对第一级进行比较合并，出现更深层级，直接把之前的替换掉（整体替换）]
+     * 不能实现深合并
+     * + obj1有，obj2有：以obj2为主
+     * + obj1有，obj2没有：不做任何处理
+     * + obj1没有，obj2有: 给obj1新增一个这个属性
+     * **/ 
+    let obj = Object.assign(obj1,obj2,obj3); //这种会修改obj1 obj1 === obj
+    // 这种不会修改obj1 不修改任何原始对象
+    let objtest = Object.assign({},obj1,obj2,obj3);
+  </script>
+</body>
+</html>
