@@ -21,57 +21,57 @@
      * 
      * **********************************************/ 
 
-     const http1 = () => {
-      return new Promise(resolve => {
-        $.ajax({
-          url: '/api/test1',
-          success: resolve,
-        })
-      })
-     }
+    //  const http1 = () => {
+    //   return new Promise(resolve => {
+    //     $.ajax({
+    //       url: '/api/test1',
+    //       success: resolve,
+    //     })
+    //   })
+    //  }
 
-     const http2 = () => {
-      return new Promise(resolve => {
-        $.ajax({
-          url: '/api/test2',
-          success: resolve,
-        })
-      })
-     }
+    //  const http2 = () => {
+    //   return new Promise(resolve => {
+    //     $.ajax({
+    //       url: '/api/test2',
+    //       success: resolve,
+    //     })
+    //   })
+    //  }
 
-     const http3 = () => {
-      return new Promise(resolve => {
-        $.ajax({
-          url: '/api/test3',
-          success: resolve,
-        })
-      })
-     }
+    //  const http3 = () => {
+    //   return new Promise(resolve => {
+    //     $.ajax({
+    //       url: '/api/test3',
+    //       success: resolve,
+    //     })
+    //   })
+    //  }
 
-     http1()
-          .then(value => {
-            console.log('第一个请求结果：',value);
-            return http2()
-          })
-          .then(value => {
-            console.log('第二个请求结果：',value);
-            return http3();
-          })
-          .then(value => {
-            console.log('第三个请求结果：',value);
-          })
+    //  http1()
+    //       .then(value => {
+    //         console.log('第一个请求结果：',value);
+    //         return http2()
+    //       })
+    //       .then(value => {
+    //         console.log('第二个请求结果：',value);
+    //         return http3();
+    //       })
+    //       .then(value => {
+    //         console.log('第三个请求结果：',value);
+    //       })
 
    //Promise 语法糖的写法
-   (async function(){
-    let value = await http1();
-    console.log('第一个请求结果：',value);
+  //  (async function(){
+  //   let value = await http1();
+  //   console.log('第一个请求结果：',value);
 
-    value = await http2();
-    console.log('第二个请求结果：',value);
+  //   value = await http2();
+  //   console.log('第二个请求结果：',value);
 
-    value = await http3();
-    console.log('第三个请求结果：',value);
-   })();
+  //   value = await http3();
+  //   console.log('第三个请求结果：',value);
+  //  })();
 
   /********************************************************************************
    * Promise语法
@@ -86,14 +86,30 @@
    * let p1 = new Promise([executor])
    *     [executor]
    *     + 必须是一个函数，传递的不是函数则会报错：Uncaught TypeError: Promise resolver xxx is not a function
+   *     + new Promise的时候，会立即把[executor]函数执行，这步操作是同步编程
    *     + [executor]函数执行的时候，会接受两个实参值，我们分别用resolve/reject形参来存储
+   *     + resolve/reject 存储的值也是函数
+   *     + resolve([value])：把创建实例的状态改为成功态（fulfilled），实例的值是[value]（成功的结果）
+   *     + reject([reason]):把创建实例的状态改为失败态（rejected），实例的值是[reason]（失败原因）
+   *     + 如果[executor]函数执行的过程中，有异常错误抛出，则实例的状态依然是rejected,实例的值是报错原因。
+   *     + 一旦状态被改为fulfilled或者rejected,则不能再次修改了。
+   * 
+   * ----------------------------------------------------------------------------
    * 
    * 实例p1具备的私有属性
    *    [[PromiseState]]:'pending' 实例状态：pending(准备/默认状态) & fulfilled(成功态)&rejected(失败态)
    *    [[PromiseResult]]: undefined 实例的值（结果）：存储成功的结果或者失败的原因，状态为pending则默认值是undefined
    * 
+   * -----------------------------------------------------------------------------
+   * 
    * Promise.prototype 为实例提供的公共属性方法
    *     + then
+   *       Promise实例(p1).then([onfulfilled],[onrejected])
+   *        1,当实例的状态变为成功，则把[onfulfilled]函数执行，反之实例状态是失败，则把
+   *          [onrejected]函数执行；并且把实例的值（成功的结果或者失败的原因）作为实参
+              传递给某个函数
+            2，我们改变promise实例的状态和值，就是为了控制then中的两个方法谁来执行，传
+               递的实参值value/reason是多少
    *     + catch
    *     + finally
    *     + Symbol(Symbol.toStringTag): 'Promise'
@@ -107,6 +123,24 @@
    *      + resolve
    *      + ...
    * ****************************************************************************/
+   /**
+    * Promise叫做承诺者设计模式：承诺异步编程结束后，根据处理的状态和结果，通知onfulfilled/onrejected执行[基于这种承诺，有效管理了异步编程的操作]
+    * **/
+   let p1 = new Promise(function(resolve,reject){
+    //  reject(0);
+    //  resolve(100);
+    // 我们一般会在executor函数中编写异步的代码
+    setTimeout(() => {
+      resolve(100);
+    },1000)
+   })
+
+   p1.then(value => {
+      console.log('成功：',value);
+   },reason => {
+      console.log('失败：',reason);
+   })
+  
   </script>
 </body>
 </html>
