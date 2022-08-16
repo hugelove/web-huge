@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* *****************************************
+     * key in obj,验证key是否为obj的一个属性，不论是私有的还是公有的属性，只要是他的属性，结果就是true
+     * 
+     * EC(G)
+     *  VO（G）/GO
+     *     a
+     *     变量提升：不论条件是否成立，只要进行变量提升（对于var来讲新老版本浏览器没有任何影响，但是对于判断体中出现的function来讲，新老版本表现不一致：老版本 函数还是声明+定义 新版本 函数只会声明，不再定义）；
+     * var  a; 
+     * 
+     * 真实项目中推荐使用函数表达式的方式创建函数(把函数作为值赋值给变量)
+     * 这样抛开了变量提升的机制，函数的执行只能在创建函数代码之后，保证了逻辑的严谨性。
+     * const fn = function(){}
+     * fn()
+     * *****************************************/ 
+    console.log(a);
+    if(!('a' in window)){
+      var a = 13;
+    }
+    console.log(a);
+  </script>
+</body>
+</html>

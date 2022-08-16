@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // const fn = function(){
+    //   console.log(this);
+    // }
+    // let obj = {
+    //   name:'zhufeng',
+    //   fn
+    // }
+    // fn();
+    // obj.fn();
+
+    // document.onclick = function(){ 
+    //   console.log(this); // document
+    // }
+
+    // document.addEventListener('click',function(){
+    //   console.log(this); // document 
+    // })
+
+    // 自执行函数：创建完立即执行
+    (function(){
+      console.log(this)
+      console.log(g);
+    })(g=78);
+    ~function(){}();
+    !function(){}();
+    +function(){}();
+
+    (function(x){
+
+    })(10)
+
+  </script>
+</body>
+</html>

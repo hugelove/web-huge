@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /******************************************************
+     * EC(G)
+     *   VO(G)/GO
+     *    fn ---> 0x001 [[scope]]:EC(G)
+     *       ---> 0x002 [[scope]]:EC(G)
+     *       ---> 12
+     *   变量提升
+     *    function fn(){console.log(1);}
+     *    var fn; //上下文中已经存在fn变量了，不会重复声明
+     *    function fn(){console.log(2);} //
+     *   代码执行
+     * 
+     * 
+     * ***************************************************/
+    console.log(fn); // function --> 2
+    function fn(){
+      console.log(1);
+    }//跳过 【变量提升阶段已经处理过了】
+    console.log(fn); // function --> 2
+    var fn = 12; // 跳过var fn 操作，但是赋值的操作在变量提升阶段没有搞过，需要执行
+    console.log(fn); //12 
+    function fn(){
+      console.log(2);
+    }// 跳过
+    console.log(fn);//12
+  </script>
+</body>
+</html>

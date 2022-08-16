@@ -1,6 +1,4 @@
-Object.prototype.hasOwnProperty 用来检测是否为私有属性
 
-私有属性还是公有属性本身就是相对的概念
 
 /***
 

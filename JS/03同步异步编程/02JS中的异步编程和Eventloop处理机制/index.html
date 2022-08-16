@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS中的异步编程和EventLoop处理机制</title>
+</head>
+<body>
+  <script>
+   /********************************************************
+    * 进程与线程
+    *   进程：其实就是一个程序（浏览器打开一个页面，也是开辟一个进程）
+    *   线程是进程中具体去执行相关任务的
+    * ---------------------------------
+    * 同步编程：只能一件事情一件事情的处理，上一件事情完成，才能处理下一件事情【一般都是因为单线程】
+    * 异步编程：同时可以处理多件事情【一般因为多线程】
+    * ----------------------------------
+    * 浏览器是多线程的，可以同时处理很多事情
+    * + GUI渲染线程
+    * + JS引擎线程【JS引擎线程会把栈内存中的代逐行解析执行】
+    * + 监听事件触发线程
+    * + 定时触发器线程
+    * + 异步HTTP请求线程
+    * + WebWorker
+    * + ....
+    * 所以浏览器利用多线程，完全可以同时处理很多事情，实现异步编程....
+    * ------------------------------------
+    * JS代码的执行是单线程的：因为浏览器只分配一个线程“JS引擎线程（主线程）”用来渲染和解析JS
+    *   + JS中大部分代码都是同步的，如果此时主线程正在执行某些代码，那么其余的事情都做不了（例如：循环就是同步代码，如果JS中出现死循环，那么主线程永远空闲不下来，其他的事情都处理不了，整个页面就卡在这卡死了）
+    *   + JS中也有一部分代码是异步的：并不是想象中的同时执行很多代码，而是【基于EventLoop&浏览器的多线程机制】实现出监听，排队的机制。
+    *   + 【异步微任务：优先级高】
+    *      - requestAnimationFrame 实现JS动画
+    *      - Promise.then | resolve/reject
+    *      - await
+    *      - queueMicrotask 创建一个新的异步微任务
+    *      - IntersectionObserver 监听DOM元素和视口交叉的信息
+    *      - MutationObserver 监听DOM元素属性改变
+    *      - Process.nextTick (Node里面)
+    *      - ......
+    *   + 【异步宏任务：优先级低】
+    *       - setTimeout/setInterval
+    *       - 事件绑定
+    *       - ajax/fetch异步数据请求
+    *       - MessageChannel
+    *       - setImmediate
+    *       - ......
+    * *****************************************************/
+    //【注意】
+    //setTimeout(() => {}); //等待时间写0或者不写，也不是立即执行，浏览器有最快的反应时间【谷歌5-7ms】，设置0，其实浏览器也是按照5-7ms来等待执行的 --> 保证定时器是异步编程
+    
+    setTimeout(() => {
+      console.log(1);
+    },20)
+    console.log(2);
+    setTimeout(() => {
+      console.log(3);
+    },10)
+    console.log(4);
+
+    for(let i=0;i<90000000;i++){}
+
+    console.log(5);
+
+    setTimeout(() => {
+      console.log(6)
+    },8)
+
+    console.log(7);
+
+    setTimeout(() => {
+      console.log(8)
+    },15)
+
+    console.log(9);
+
+
+
+  </script>
+</body>
+</html>
