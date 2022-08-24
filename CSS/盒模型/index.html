@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style type="text/css">
+    /* 
+      content-box设置为标准模型，元素宽度是width:100px
+      border-box设置为IE模型，它的元素宽度 width = content + 2 * padding + 2 * border = 70px + 2 x10px + 2 x5px = 100px。
+      
+      ####javascript如何设置获取盒模型对应的宽和高
+      dom.style.width/height 只能取到行内样式的宽和高，style标签中和link外链的样式取不到。
+      dom.currentStyle.width/height 取到的是最终渲染后的宽和高，只有IE支持此属性。
+      window.getComputedStyle(dom).width/height 同（2）但是多浏览器支持，IE9以上支持。
+      dom.getBoundingClientRect().width/height 也是得到渲染后的宽和高，大多浏览器支持。IE9以上支持，除此外还可以取到相对于视窗的上下左右的距离
+    */
+      .content-box{
+        /* box-sizing: content-box; （w3c标准盒模型）*/
+        box-sizing: border-box;
+        width: 100px;
+        height: 50px;
+        padding: 10px;
+        border: 1px solid red;
+        margin: 15px;
+      }
+  </style>
+</head>
+<body>
+    <div class="content-box">
+      我是盒模型
+    </div>
+</body>
+</html>

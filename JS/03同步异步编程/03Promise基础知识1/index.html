@@ -105,11 +105,37 @@
    * Promise.prototype 为实例提供的公共属性方法
    *     + then
    *       Promise实例(p1).then([onfulfilled],[onrejected])
-   *        1,当实例的状态变为成功，则把[onfulfilled]函数执行，反之实例状态是失败，则把
-   *          [onrejected]函数执行；并且把实例的值（成功的结果或者失败的原因）作为实参
-              传递给某个函数
+   *        1,当实例的状态变为成功，则把[onfulfilled]函数执行，反之实例状态是失败，则
+   *         把 [onrejected]函数执行；并且把实例的值（成功的结果或者失败的原因）作为实
+   *         参传递给某个函数
             2，我们改变promise实例的状态和值，就是为了控制then中的两个方法谁来执行，传
                递的实参值value/reason是多少
+       ------------    ------  --------- ------ -----------------------------------------
+            返回的结果是一个全新的promise实例【例如：p2】,它的状态和值由上一个（实例）.then传递的onfulfilled或者onrejected执行来决定
+            + 如果执行方法报错了，则p2的状态是失败，值是报错信息
+            + 如果执行不报错，则看返回值
+               - 如果返回的依然是一个promise实例【例如：@p】，则@p的状态和值，决定了p2的状态和值
+               - 如果返回的不是一个promise实例，则p2的状态是fulfilled，值是return返回的值（没有写return,值就是undefined）
+              =======================================================
+              "Then链的穿透和顺延机制"：执行then，如果onfulfilled/onrejected没有传递，则顺延到下一个同等状态的方法上。
+              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+              let p1 = new Promise(function(resolve,reject){
+                setTimeout(() => {
+                  resolve(100)
+                },100);
+               })
+
+               let p2 = p1.then(value => {
+                console.log('成功',value);
+               },reason => {
+                console.log('失败',reason);
+               });
+               p2.then(value => {
+                console.log('成功',value);
+               },reason => {
+                console.log('失败',reason);
+               })
+              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    *     + catch
    *     + finally
    *     + Symbol(Symbol.toStringTag): 'Promise'
@@ -119,8 +145,9 @@
    *      + allSelected
    *      + any
    *      + race
-   *      + reject
-   *      + resolve
+   *      + reject: Promise.reject(xx)创建一个状态为rejected，值是xxx的promise实例
+   *      + resolve：Promise.resolve(xxx)创建一个状态为fulfilled，值是xxx的promise
+   *        实例
    *      + ...
    * ****************************************************************************/
    /**
