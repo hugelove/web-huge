@@ -25,6 +25,14 @@
       width: 100px;
       height: 100px;
     }
+    .container .item1{
+      margin-top:-10px;
+      margin-bottom: -20px;
+    }
+    .container .item3{
+      margin-left:-10px;
+      margin-right: -20px;
+    }
     .container .border-blue{
       border: 1px solid blue;
     }
@@ -43,22 +51,28 @@
   <p>用于测试 margin top bottom 的负数情况</p>
   <!--  -->
   <div class="container">
-    <div class="item border-blue">
+    <div class="item item1 border-blue">
       this is item1
     </div>
-    <div class="item border-red">
+    <div class="item item2 border-red">
       this is item2
     </div>
   </div>
   <!--  -->
   <p>用于测试margin left right 的负数情况</p>
   <div class="container clearfix">
-    <div class="item border-blue float-left">
+    <div class="item item3 border-blue float-left">
       this is item3
     </div>
-    <div class="item border-red float-left">
+    <div class="item item4 border-red float-left">
       this is item4
     </div>
   </div>
+
+  <p>测试margin负值</p>
+  <div style="border:1px solid cyan;width: 100px; height: 100px;margin-right:-10px;margin-bottom: -10px;margin-top:-10px;margin-left:-10px;">
+    测试
+  </div>
+  <div style="border:1px solid purple;width:100px;height:100px;"></div>
 </body>
 </html>

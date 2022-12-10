@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /***
+     * 值类型
+     * 除了保存方式不同之外，在从一个变量向另一个变量复制基本类型值和引用类型值的时，也存在不同。
+     * 如果一个变量向另外一个变量复制基本类型的值，会在变量对象上创建一个新值，然后把该值赋值到为新变量分配的位置上。
+     * 下面的例子中，a中保存的值是100。当使用a来初始化b的时候，b中也保存了值100。但是b中100和a中的100是完全独立的，该值只是a中100的一个副本。此后，这两个变量可以参与任何操作而不会相互影响。
+     * ***/
+    let a = 100;
+    let b = a;
+    a = 200;
+    console.log(b) //100;
+    /**
+     * 引用类型
+     * 当从一个变量向另一个变量复制引用类型的值时，同样也会将存储在变量对象中的值复制一份放到为新变量分配的空间中。不同的是，这个值的副本实际上是一个指针，而这个指针指向存储在堆中一个对象。复制操作结束后，两个变量实际上将引用同一个对象。因此，改变其中一个变量，就会影响另一个变量。
+     * 下面的例子中，变量c保存了一个对象的新实例。然后，这个值被复制到了d中；换句话说，c和d都指向同一个对象。这样，如果c添加了name属性后，那么可以通过d来访问这个属性，因为这两个变量引用的都是同一个对象。
+     * ***/ 
+    let c = { age: 20 }
+    let d = c;
+    d.age = 21;
+    console.log(c.age); // 21
+
+    /****
+     * 常见值类型
+     * undefined必须用let定义不能用const，
+     * 如果用const会报错：Uncaught SyntaxError: Missing initializer in const declaration
+     * ***/ 
+    let foo; //undefined 
+    const s = 'abc';
+    const n = 100;
+    const e = true;
+    const m = Symbol('m')
+    /**
+     * 常见引用类型
+     * **/ 
+    const obj = { x: 100 }
+    const arr = ['a','b','c'];
+    const nu = null //特殊引用类型，指针指向为空地址
+    // 特殊引用类型，但不用于存储数据，所以没有‘拷贝，复制函数’这一说法
+    function fn(){}
+  </script>
+</body>
+</html>

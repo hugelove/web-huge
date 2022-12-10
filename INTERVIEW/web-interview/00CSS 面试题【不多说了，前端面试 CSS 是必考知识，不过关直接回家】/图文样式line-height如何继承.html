@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style type="text/css">
+    body{
+      font-size: 20px;
+      /**
+      *line-height:50px 这个地方p标签就是继承的50px的，比较常规好理解
+      **/
+      /* line-height: 50px; */
+
+      /**
+      * line-height:1.5 这个地方p标签line-height是24，
+        p本身font-size是16px 所以16×1.5=24
+      */
+      line-height: 1.5;
+
+      /**
+      * line-height:200% 这个地方比较特殊，p继承过来的line-height是20×200% 等于 40px
+      这个地方是需要重点注意的考点
+      **/
+      /* line-height: 200%; */
+    }
+    p{
+      background-color: cyan;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <!-- 
+    line-height 如何继承
+    写具体数值，如30px,则继承该值
+    写比例，如2/1.5，则继承该比例
+    写百分比，如200%，则继承计算出来的值
+   -->
+   <p>这是一行文字</p>
+</body>
+</html>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>水平对齐</title>
+  <title>水平居中对齐</title>
   <style type="text/css">
     .container{
       border: 1px solid #ccc;
@@ -14,16 +14,22 @@
     .item{
       background-color: #ccc;
     }
+    /*  inline元素 
+    text-align:center */
     .container-1{
         text-align: center;
     }
     .container-2{
 
     }
+    /* block元素 
+    `margin:auto*/
     .container-2 .item{
       width: 500px;
       margin: auto;
     }
+    /* absolute元素
+    left:50% + margin-left 负值 */
     .container-3{
       position: relative;
       height: 100px;

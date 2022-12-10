@@ -14,8 +14,8 @@
       background-color: #f1f1f1;
     }
     #container{
-      padding-left: 200px; /***/
-      padding-right: 150px; /***/
+      padding-left: 200px; /**左边宽度*/
+      padding-right: 150px; /*右边宽度**/
       background-color: purple;
     }
     #container .column{
@@ -23,19 +23,19 @@
     }
     #center{
       background-color: cyan;
-      width: 100%;
+      width: 100%;/**因为这个地方是100%，要想左右能挪到上面，父容器要留有位置，所以要对父元素#container做左右padding的处理，上面17行，18行代码**/
     }
     #left{
-      position: relative;
+      position: relative; /**相对于自身移动200px*/
       background-color: yellow;
       width: 200px;
-      margin-left:-100%; /***/
+      margin-left:-100%; /*这一步很重要，回忆上面的margin负值，margin-left负值是向左移动多少，这个时候left和center横向重合了，所谓的100%就是#left父元素（#cotainer）的宽度值**/
       right:200px;
     }
     #right{
       background-color: pink;
       width: 150px;
-      margin-right: -150px; /***/
+      margin-right: -150px; /*这个地方比较难理解，和前面的margin负值有关系，回忆上面的margin-right:-10px 右侧元素左移，自身不受影响，这个地方特殊在#right右侧已经没有元素了，在外界看来，设置margin-right:-150px（150px就是其自身宽度）就相当于完全没有宽度了，有宽度的时候会浮动下去，现在相当于没有宽度了，就不占地方了**/
     }
     #footer{
       /* clear: both;  这个去掉之后在container中添加上class='clearfix' */
@@ -56,6 +56,7 @@
   </style>
 </head>
 <body>
+  <!-- 通过padding为两边留白的 -->
   <div id="header">这是头部</div>
   <div id="container" class="clearfix">
     <div id="center" class="column">这是中间宽度是100%</div>

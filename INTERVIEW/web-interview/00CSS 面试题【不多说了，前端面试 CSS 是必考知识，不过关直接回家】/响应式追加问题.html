@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style type="text/css">
+    body{
+      margin: 0;
+      padding: 0;
+    }
+    #container{
+      background-color: cyan;
+      width: 10vw;
+      height: 10vh;
+    }
+  </style>
+</head>
+<body>
+  <!-- rem的弊端：“阶梯”性 -->
+  <!-- 
+    window.screen.height //屏幕高度 667
+    window.innerHeight // 网页视口高度 553（和浏览器有关系，去掉上面的头和下面的尾巴）
+    document.body.clientHeight // body高度
+   -->
+   <!-- 
+    vh 网页视口高度的1/100
+    vw 网页视口宽度的1/100
+    vmax 取两者最大值
+    vmin 取两者最小值
+    -->
+    <p>vw vh测试</p>
+    <div id="container"></div>
+
+    <script>
+      // window.innerHeight === 100vh
+      // window.innerWidth === 100vw
+    </script>
+</body>
+</html>
