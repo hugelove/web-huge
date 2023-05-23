@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>手写bind函数</title>
+</head>
+<body>
+  <script>
+    // bind demo
+    function fn1(a,b){
+      console.log('this',this)
+      console.log(a,b)
+      return 'this is fn1'
+    }
+    const fn2 = fn1.bind({x:100},10,20,30)
+    const res = fn2()
+    console.log(res)
+
+    /**
+     * bind 返回一个新的函数
+     * 
+     * **/
+
+     //模拟bind
+     Function.prototype.myBind = function(){
+      // 将参数拆解为数组（类数组转换为数组）
+      const args = Array.prototype.slice.call(arguments)
+
+      //获取this（数组第一项）
+      const t = args.shift()
+
+      //fn1.bind(....)中的fn1
+      const self = this
+
+      //返回函数
+      return function(){
+        return self.apply(t,args)
+      }
+     }
+  </script>
+</body>
+</html>

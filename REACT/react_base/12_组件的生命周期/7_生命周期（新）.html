@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test"></div>
+  <!-- 
+    https://react.zcopy.site/ 
+    https://17.reactjs.org/docs/cdn-links.html
+  -->
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script type="text/babel">
+    // 创建组件
+    class Count extends React.Component{
+      // 构造器
+      constructor(props){
+        console.log('Count-构造器-constructor')
+        super(props)
+        // 初始化状态
+        this.state = { count:0 }
+      }
+
+      //加1按钮回调
+      add = () => {
+        // 获取原状态值
+        const { count } = this.state
+        // 更新状态
+        this.setState({count:count+1})
+      }
+
+      // 卸载组件按钮的回调函数
+      removeComponent = ()=> {
+        ReactDOM.unmountComponentAtNode(document.getElementById('test'))
+      }
+
+      //这个不受【shouldComponentUpdate】阀门的控制
+      forceComponent = ()=> {
+        this.forceUpdate()
+      }
+
+      /**
+       * state的值在任何时候都取决于props
+       * 无论是初始化或者修改都是不起作用的，完全听props指挥，适用于一些非常特殊的情况，使用场景罕见。
+       * 派生状态，会导致代码冗余。
+       * 从生命周期（新）流程图上可以看出来getDerivedStateFromProps横跨挂载和更新
+       * 参数：(props,state)
+       * **/
+      static getDerivedStateFromProps(props,state){
+        console.log('Count-state的值在任何时候都取决于props-getDerivedStateFromProps',props,state)
+        // return props
+        return null
+      }
+
+      /**
+       * getSnapshotBeforeUpdate在最新一次渲染输出（提交到DOM节点）之前调用。
+       * 此生命周期的任何返回值将作为参数传递给componentDidUpdate()（因为该函数的下游是componentDidUpdate()函数）。
+       * 该方法不常用，但是可能出现在UI处理中，如需要以特殊方式处理滚动位置的聊天线程等。
+       * 
+       * ***/ 
+      getSnapshotBeforeUpdate(prevProps,prevState){
+        console.log('Count-getSnapshotBeforeUpdate');
+        return '随便写个快照值'
+      }
+
+      //组件挂载完毕的钩子 
+      componentDidMount(){
+        console.log('Count-组件挂载完毕的钩子-componentDidMount')
+      }
+
+      //组件将要卸载的钩子
+      componentWillUnmount(){
+        console.log('Count-组件将要卸载的钩子-componentWillUnmount')
+      }
+ 
+      shouldComponentUpdate(){
+        console.log('Count-控制组件更新的[阀门]-shouldComponentUpdate');
+        return true
+      }
+      // 组件更新完毕的钩子
+      componentDidUpdate(prevProps,prevState,snapshotValue){
+        console.log('Count-组件更新完毕的钩子-componentDidUpdate',prevProps,prevState,snapshotValue);
+      }
+      render(){
+        console.log('Count-render')
+        const {count} =  this.state
+        return (
+          <div>
+            <h6>Sum: {count}</h6>  
+            <button onClick={this.add}>加+1</button>
+            <button onClick={this.removeComponent}>卸载</button>
+            <button onClick={this.forceComponent}>不更改任何状态中的数据，强制更新一下</button>
+          </div>
+        )
+      }
+    }
+
+    // 渲染组件
+    ReactDOM.render(<Count name='胡歌'/>,document.getElementById('test'))
+  </script>
+</body>
+</html>

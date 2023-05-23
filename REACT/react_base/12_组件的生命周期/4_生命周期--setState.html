@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test"></div>
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script type="text/babel">
+    // 创建组件
+    class Count extends React.Component{
+      // 构造器
+      constructor(props){
+        console.log('Count-构造器-constructor')
+        super(props)
+        // 初始化状态
+        this.state = { count:0 }
+      }
+
+      //加1按钮回调
+      add = () => {
+        // 获取原状态值
+        const { count } = this.state
+        // 更新状态
+        this.setState({count:count+1})
+      }
+
+      // 卸载组件按钮的回调函数
+      removeComponent = ()=> {
+        ReactDOM.unmountComponentAtNode(document.getElementById('test'))
+      }
+
+      // 组件将要挂载的钩子
+      componentWillMount(){
+        console.log('Count-组件将要挂载的钩子-componentWillMount')
+      }
+
+      //组件挂载完毕的钩子 
+      componentDidMount(){
+        console.log('Count-组件挂载完毕的钩子-componentDidMount')
+      }
+
+      //组件将要卸载的钩子
+      componentWillUnmount(){
+        console.log('Count-组件将要卸载的钩子-componentWillUnmount')
+      }
+
+      /**
+       * 控制组件更新的阀门
+       * 如果不写shouldComponentUpdate这个钩子函数，底层也会给补一个返回值，而且返回值为true
+       * 如果写了这个钩子函数就以已经写的为主
+       * return true 阀门就是开启的 setState出发的流程就都是可以走下去的
+       * return false 阀门就是关闭的，从shouldComponentUpdate之后的钩子流程不再走下去（也就是说componentWillUpdate,render,componentDidUpdate钩子函数都不走了，所以页面也没法更新了）
+       * **/ 
+      shouldComponentUpdate(){
+        console.log('Count-控制组件更新的[阀门]-shouldComponentUpdate');
+        return true
+      }
+
+      //组件将要更新的钩子
+      componentWillUpdate(){
+        console.log('Count-组件将要更新的钩子-componentWilUpdate');
+      }
+
+      // 组件更新完毕的钩子
+      componentDidUpdate(){
+        console.log('Count-组件更新完毕的钩子-componentDidUpdate');
+      }
+      render(){
+        console.log('Count-render')
+        const {count} =  this.state
+        return (
+          <div>
+            <h6>Sum: {count}</h6>  
+            <button onClick={this.add}>加+1</button>
+            <button onClick={this.removeComponent}>卸载</button>
+          </div>
+        )
+      }
+    }
+
+    // 渲染组件
+    ReactDOM.render(<Count/>,document.getElementById('test'))
+  </script>
+</body>
+</html>

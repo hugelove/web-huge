@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<div id="test"></div>
+<body>
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script type="text/babel">
+    // 1,创建组件
+    class Test extends React.Component{
+      showTips1 = () => {
+        console.log(this)
+        const {input1} = this
+        alert(input1.value + '这些白云聚了又散，散了又聚。人生离合，亦复如此')
+      }
+
+      showTips2 = () => {
+        const {input2} = this
+        alert(input2.value + '既见君子云胡不喜')
+      }
+
+      render(){
+        return (
+          <div>
+            <input ref={c => this.input1 = c} type="text" placeholder="程英说："/>
+            <button onClick={this.showTips1}>点击的那个按钮</button>
+            <input onBlur={this.showTips2} ref={c => this.input2 = c} type="text" placeholder="程英说：失去焦点提示"/>  
+          </div>
+        )
+      }
+    }
+
+    // 2,渲染组件
+    ReactDOM.render(<Test/>,document.getElementById('test'))
+  </script>
+</body>
+</html>

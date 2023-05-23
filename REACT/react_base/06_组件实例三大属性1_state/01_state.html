@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<div id="test"></div>
+<body>
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script type="text/babel">
+    // 1，创建组件
+    class Weather extends React.Component{
+      /**
+       * 构造器调用几次？
+       *    页面只有一个<Weather/>组件的实例，只写了一次<Weather/>标签
+       *    构造器执行了一次 
+       * ***/ 
+      constructor(props){
+        console.log('constructor-----')
+        super(props)
+        // 初始化状态
+        this.state = { isHot:true,wind:'台风'}
+        // 解决 changeWeather this指向问题
+        this.changeWeather = this.changeWeather.bind(this)
+      }
+      /**
+       * render调用几次？
+       *    1+n次
+       *    1是初始化那次
+       *    n是状态更新的次数
+       * ***/ 
+      render(){
+        console.log('render---')
+        // console.log(this);
+        const {isHot,wind} = this.state
+        return <h1 onClick={this.changeWeather}>今天{isHot ? '热':'冷'},{wind}</h1>
+      }
+      // changeWeather调用几次？ --- 点击几次调用几次
+      changeWeather(){
+        /*****
+         * changeWeather放在哪里？ --- Weather原型对象上，供实例使用
+         * 用于changeWeather是作为onClick的回调，所以不是通过实例调用的，是直接调用
+         * 类中的方法默认开启了局部的严格模式，所以changeWeather中的this为undefined
+         * *******/
+
+        // 获取原来isHot
+        const isHot = this.state.isHot
+        // 注意注意：状态必须通过setState进行更新,且更新是一种合并，不是替换（同名的直接覆盖了，不同名的保持原来）
+        this.setState({isHot:!isHot})
+
+        // 注意注意：状态（State）不可以直接更改，必须调用内置的API，下面的写法就是直接更改，是错误的写法
+        // this.state.isHot = !isHot //这是错误的写法
+      }
+    }
+
+    // 2.渲染页面到组件
+    ReactDOM.render(<Weather/>,document.getElementById('test'))
+  </script>
+</body>
+</html>

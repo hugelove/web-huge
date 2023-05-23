@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test1"></div>
+  <!-- React -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <!-- ReactDOM -->
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <!-- 引入prop-types用于对组件标签属性进行限制 PropTypes-->
+  <script src="../js/old/prop-types.js"></script>
+  <script type="text/babel">
+    // 函数式组件
+    function Person(props){
+      const {name,age,sex} = props
+      return (
+        <ul>
+          <li>{name}</li> 
+          <li>{age}</li> 
+          <li>{sex}</li> 
+        </ul>
+      )
+    }
+    // 对标签属性进行类型，必要性的限制
+    Person.propTypes = {
+      name: PropTypes.string.isRequired,//限制名字必传，而且为字符串
+      sex: PropTypes.string,//限制性别为字符串
+      age: PropTypes.number,//限制age为数值
+    }
+    // 指定标签属性默认值
+    Person.defaultProps = {
+      sex:'女',
+      age: 18
+    }
+
+    //2,渲染组件到页面
+    ReactDOM.render(<Person name='胡歌' />,document.getElementById('test1'))
+  </script>
+</body>
+</html>
